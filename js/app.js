@@ -58,7 +58,8 @@ var createNewTaskElement = function(taskString) {
   return listItem;
 }
 var addTask = function() {
-  if(taskInput.val > 0) {
+
+  if(taskInput.value.length > 0) {
     // Create a new list item with the text from the #new-task
     var listItem = createNewTaskElement(taskInput.value);
     // Append listItem to incompleteTaskHolder
@@ -115,7 +116,6 @@ var taskIncomplete = function() {
 
 }
 var bindTaskEvents = function(taskListItem, checkboxEventHandler) {
-  console.log('bind events listeners');
   // select taskListItem children
   var checkBox = taskListItem.querySelector('input[type=checkbox]');
   var editButton = taskListItem.querySelector('button.edit');
@@ -130,6 +130,18 @@ var bindTaskEvents = function(taskListItem, checkboxEventHandler) {
 
 // set the click handler to the addTask function
 addButton.addEventListener('click', addTask);
+
+taskInput.addEventListener('keyup', function(e) {
+  // IE compatibility checkBox
+  if(!e) {
+    e = window.event;
+  }
+  var keyCode = e.keyCode || e.which;
+  // if user presses enter submit task
+  if(keyCode === 13) {
+    addTask();
+  }
+});
 
 // cycle over the incompleteTaskHolder ul li's
 for (var i = 0; i < incompleteTaskHolder.children.length; i++) {
