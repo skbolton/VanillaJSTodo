@@ -4,6 +4,7 @@ var taskInput = document.getElementById('new-task');
 var addButton = document.getElementsByTagName('button')[0];
 var incompleteTaskHolder = document.getElementById('incomplete-tasks');
 var completedTasksHolder = document.getElementById('completed-tasks');
+var container = document.getElementsByClassName('container');
 // Add a new task
 var createNewTaskElement = function(taskString) {
   var listItem = document.createElement('li');
@@ -129,6 +130,18 @@ var bindTaskEvents = function(taskListItem, checkboxEventHandler) {
   deleteButton.onclick = deleteTask;
   // bind taskCompleted to the checkbox
   checkBox.onchange = checkboxEventHandler;
+}
+
+var enterPressed = function(e) {
+  // IE compatibility checkBox
+    if(!e) {
+      e = window.event;
+    }
+    var keyCode = e.keyCode || e.which;
+    var target = e.target;
+    if(keyCode === 13) {
+      console.log(target.parentNode.nodeType);
+    }
 }
 
 // set the click handler to the addTask function
