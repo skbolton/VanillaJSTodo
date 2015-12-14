@@ -91,6 +91,9 @@ var editTask = function() {
       // input value becomes the label's text
       editInput.value = label.innerText;
       editButton.innerText = "Save";
+      window.setTimeout(function () {
+        editInput.focus();
+      }, 0);
     }
     listItem.classList.toggle('editMode');
   // Toggle .editMode
