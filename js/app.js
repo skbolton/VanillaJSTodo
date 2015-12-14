@@ -41,10 +41,10 @@ var createNewTaskElement = function(taskString) {
   editButton.className = "edit"
 
   if(typeof deleteButton.innerText === "undefined") {
-    deleteButton.textContent = "Edit";
+    deleteButton.textContent = "Delete";
   }
   else {
-    deleteButton.innerText = "Edit";
+    deleteButton.innerText = "Delete";
   }
 
   deleteButton.className = "delete";
@@ -68,14 +68,22 @@ var addTask = function() {
 }
 // Edit and existing task
 var editTask = function() {
-  // When edit button is pressed
+  var listItem = this.parentNode;
+  var editInput = listItem.querySelector('input[type=text]');
+  var label = listItem.querySelector('label');
+  var containsClass = listItem.classList.contains('editMode');
     // if the class of the parent is .editMode
+    if(containsClass) {
       // Switch back from .editMode
       // label text become the input's value
-    // else
+      label.innerText = editInput.value;
+    }
+    else {
       // Switch to .editMode
       // input value becomes the label's text
-
+      editInput.value = label.innerText;
+    }
+    listItem.classList.toggle('editMode');
   // Toggle .editMode
 }
 var deleteTask = function() {
@@ -113,7 +121,7 @@ var bindTaskEvents = function(taskListItem, checkboxEventHandler) {
 }
 
 // set the click handler to the addTask function
-addButton.onclick = addTask;
+addButton.addEventListener('click', addTask);
 
 // cycle over the incompleteTaskHolder ul li's
 for (var i = 0; i < incompleteTaskHolder.children.length; i++) {
