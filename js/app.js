@@ -58,30 +58,38 @@ var createNewTaskElement = function(taskString) {
   return listItem;
 }
 var addTask = function() {
-  // Create a new list item with the text from the #new-task
-  var listItem = createNewTaskElement(taskInput.value);
-  // Append listItem to incompleteTaskHolder
-  incompleteTaskHolder.appendChild(listItem);
-  bindTaskEvents(listItem, taskCompleted);
-  taskInput.value = "";
+  if(taskInput.val > 0) {
+    // Create a new list item with the text from the #new-task
+    var listItem = createNewTaskElement(taskInput.value);
+    // Append listItem to incompleteTaskHolder
+    incompleteTaskHolder.appendChild(listItem);
+    bindTaskEvents(listItem, taskCompleted);
+    taskInput.value = "";
+  }
+  else {
+    alert('Please enter a task');
 
+  }
 }
 // Edit and existing task
 var editTask = function() {
   var listItem = this.parentNode;
   var editInput = listItem.querySelector('input[type=text]');
   var label = listItem.querySelector('label');
+  var editButton = listItem.querySelector('button');
   var containsClass = listItem.classList.contains('editMode');
     // if the class of the parent is .editMode
     if(containsClass) {
       // Switch back from .editMode
       // label text become the input's value
       label.innerText = editInput.value;
+      editButton.innerText = "Edit";
     }
     else {
       // Switch to .editMode
       // input value becomes the label's text
       editInput.value = label.innerText;
+      editButton.innerText = "Save";
     }
     listItem.classList.toggle('editMode');
   // Toggle .editMode
